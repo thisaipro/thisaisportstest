@@ -5,16 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Thisai Sports Intelligence</title>
   <link rel="stylesheet" href="/styles.css" />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏅</text></svg>" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M8 62 C40 40 70 34 92 26' fill='none' stroke='%231b57a6' stroke-width='9' stroke-linecap='round'/%3E%3Cpath d='M84 16 L98 22 L86 33 Z' fill='%231b57a6'/%3E%3Ctext y='.92em' x='30' font-size='70' font-weight='700' font-family='Segoe UI,Arial' fill='%231b57a6'%3Et%3C/text%3E%3C/svg%3E" />
 </head>
 <body>
   <header class="topbar">
-    <div class="brand">
-      <span class="logo">🏅</span>
-      <div>
-        <div class="brand-title">Thisai Sports Intelligence</div>
-        <div class="brand-sub">Tamil Nadu School Sports Talent Intelligence · Epic 3 MVP</div>
-      </div>
+    <div class="brand" id="brandHome" title="Home">
+      <img src="/logo.svg" alt="Thisai" />
+      <span class="divider"></span>
+      <span class="ctx"><b>SPORTS INTELLIGENCE</b>Tamil Nadu School Talent Platform · Epic 3 MVP</span>
     </div>
     <div class="role-switch">
       <label>Acting as</label>
@@ -22,18 +20,16 @@
     </div>
   </header>
 
-  <nav class="tabs" id="tabs"></nav>
+  <nav class="nav" id="nav"></nav>
 
   <main id="view" class="view"><div class="loading">Loading…</div></main>
 
   <footer class="foot">
     <span id="versionInfo"></span>
-    <span class="disclaimer">Decision support for exploration — not a prediction of elite success. No public child rankings. No medical/diagnostic claims.</span>
+    <span class="disclaimer">Decision support for exploration — not a prediction of elite success. No public child rankings. No medical or diagnostic claims.</span>
   </footer>
 
-  <div id="modal" class="modal hidden"><div class="modal-card" id="modalCard"></div></div>
   <div id="toast" class="toast hidden"></div>
-
   <script src="/app.js" type="module"></script>
 </body>
 </html>

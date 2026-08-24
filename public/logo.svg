@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 108" role="img" aria-label="Thisai — AI-Powered Student Intelligence">
+  <!-- rising arrow swoosh -->
+  <path d="M14 60 C 110 34, 235 26, 300 20" fill="none" stroke="#1b57a6" stroke-width="8" stroke-linecap="round"/>
+  <path d="M292 8 L322 18 L296 34 L300 21 Z" fill="#1b57a6"/>
+  <!-- wordmark -->
+  <text x="46" y="82" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="72" font-weight="700" letter-spacing="-2" fill="#1b57a6">thisai</text>
+  <!-- tagline -->
+  <text x="50" y="101" font-family="'Segoe UI', Arial, sans-serif" font-size="13.5" font-weight="600" letter-spacing="1.2" fill="#1b57a6">AI-Powered Student Intelligence</text>
+</svg>
