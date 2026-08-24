@@ -1,0 +1,18 @@
+{
+  "name": "thisai-sports-intelligence",
+  "version": "1.0.0",
+  "description": "Thisai Sports Intelligence — Tamil Nadu School Sports Talent Intelligence Platform (Epic 3 MVP). Zero external dependencies; runs on Node.js built-ins only.",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node --experimental-sqlite src/server.js",
+    "seed": "node --experimental-sqlite src/seed.js",
+    "reset": "node --experimental-sqlite src/seed.js --reset",
+    "smoke": "node --experimental-sqlite scripts/smoke.js"
+  },
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "license": "UNLICENSED",
+  "dependencies": {}
+}
