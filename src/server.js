@@ -23,6 +23,17 @@ const PORT = process.env.PORT || 3000;
 
 initSchema();
 
+// First-run convenience: if the database has no students yet, seed the demo
+// data automatically so `npm run dev` / `npm start` work without a prior step.
+try {
+  const n = db.prepare(`SELECT COUNT(*) c FROM student`).get().c;
+  if (n === 0) {
+    console.log('  Empty database — seeding demo data (first run)…');
+    const { seed } = await import('./seed.js');
+    seed();
+  }
+} catch (e) { console.error('  Auto-seed skipped:', e.message); }
+
 // --- helpers ---------------------------------------------------------------
 function json(res, status, body) {
   const s = JSON.stringify(body);

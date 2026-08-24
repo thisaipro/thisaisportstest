@@ -18,12 +18,22 @@ Requires **Node.js ≥ 22.5** (uses the built-in `node:sqlite`). **Zero external
 npm dependencies** — nothing to install.
 
 ```bash
+npm run dev      # ONE command: auto-seeds on first run, then serves with live-reload
+```
+
+…then open **http://localhost:3000**. That's the fastest path — no separate seed step.
+
+Prefer explicit steps (or a production-style start)?
+
+```bash
 npm run seed     # create + populate the demo database (3 districts, 6 schools, 60 students, 2 cycles)
-npm start        # serve on http://localhost:3000
+npm start        # serve on http://localhost:3000 (also auto-seeds if the DB is empty)
 npm run smoke    # run the offline intelligence-pipeline tests (21 assertions)
 ```
 
-`npm run reset` re-seeds from scratch. Set `PORT` to change the port.
+`npm run reset` wipes and re-seeds from scratch. Set `PORT` to change the port
+(e.g. `PORT=8080 npm run dev`). The `data/` SQLite DB is git-ignored, so it's
+generated locally on first run.
 
 Open http://localhost:3000 and use the **"Acting as"** switcher (top-right) to
 move between roles — each lands on its own dashboard:

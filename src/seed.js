@@ -8,8 +8,7 @@ import { TESTS, TEST_BY_ID, ageBandFor } from './config/battery.js';
 import { normFor } from './engine/norms.js';
 import { SPORTS, SPORT_PROFILE_VERSION } from './config/sports.js';
 import { recordMeasurements, generateIntelligence, createReferral, addObservation, recordConsent } from './service.js';
-
-const RESET = process.argv.includes('--reset');
+import { fileURLToPath } from 'node:url';
 
 // --- deterministic RNG -----------------------------------------------------
 function mulberry32(a) { return function () { a |= 0; a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
@@ -204,5 +203,12 @@ function seed() {
   console.log('Seed complete:', JSON.stringify(counts, null, 2));
 }
 
-if (RESET) resetDb();
-seed();
+export { seed, resetDb };
+
+// Only run automatically when invoked directly (npm run seed / reset),
+// not when imported by the server for auto-seeding.
+const isMain = process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1];
+if (isMain) {
+  if (process.argv.includes('--reset')) resetDb();
+  seed();
+}
