@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Thisai Sports Intelligence</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏅</text></svg>" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">🏅</span>
+      <div>
+        <div class="brand-title">Thisai Sports Intelligence</div>
+        <div class="brand-sub">Tamil Nadu School Sports Talent Intelligence · Epic 3 MVP</div>
+      </div>
+    </div>
+    <div class="role-switch">
+      <label>Acting as</label>
+      <select id="userSelect"></select>
+    </div>
+  </header>
+
+  <nav class="tabs" id="tabs"></nav>
+
+  <main id="view" class="view"><div class="loading">Loading…</div></main>
+
+  <footer class="foot">
+    <span id="versionInfo"></span>
+    <span class="disclaimer">Decision support for exploration — not a prediction of elite success. No public child rankings. No medical/diagnostic claims.</span>
+  </footer>
+
+  <div id="modal" class="modal hidden"><div class="modal-card" id="modalCard"></div></div>
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="/app.js" type="module"></script>
+</body>
+</html>
