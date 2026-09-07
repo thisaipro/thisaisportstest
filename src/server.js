@@ -192,7 +192,10 @@ async function api(req, res, url) {
   return json(res, 405, { error: 'method not allowed' });
 }
 
-const server = http.createServer(async (req, res) => {
+// Single request handler. Exported as the default so serverless platforms
+// (Vercel's @vercel/node) can invoke it directly; also wrapped in an http
+// server for local `npm start` / `npm run dev`.
+export default async function handler(req, res) {
   const url = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
   try {
     if (url.pathname.startsWith('/api/')) return await api(req, res, url);
@@ -202,9 +205,14 @@ const server = http.createServer(async (req, res) => {
     if (status >= 500) console.error(err);
     json(res, status, { error: err.message || 'server error' });
   }
-});
+}
 
-server.listen(PORT, () => {
-  console.log(`\n  Thisai Sports Intelligence (Epic 3 MVP)`);
-  console.log(`  → http://localhost:${PORT}\n`);
-});
+// Only bind a port when running as a normal process (local dev / a container).
+// On Vercel the module is imported and `handler` is called per request, so we
+// must NOT listen there.
+if (!process.env.VERCEL && !process.env.AWS_LAMBDA_FUNCTION_NAME) {
+  http.createServer(handler).listen(PORT, () => {
+    console.log(`\n  Thisai Sports Intelligence (Epic 3 MVP)`);
+    console.log(`  → http://localhost:${PORT}\n`);
+  });
+}
