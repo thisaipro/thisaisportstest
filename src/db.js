@@ -7,13 +7,27 @@ import { DatabaseSync } from 'node:sqlite';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { mkdirSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 
+// Choose a WRITABLE location for the SQLite file.
+// On serverless hosts (Vercel, AWS Lambda) the deployment bundle is read-only —
+// only the OS temp dir is writable — so the DB must live there. The server
+// auto-seeds an empty DB on cold start, so a fresh /tmp database is fine for the
+// demo. NOTE: /tmp is per-instance and ephemeral, so writes do not persist
+// across cold starts on serverless — see README "Deploying" for durable options.
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const DATA_DIR = join(__dirname, '..', 'data');
+const ON_SERVERLESS = process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME || process.env.LAMBDA_TASK_ROOT;
+const DATA_DIR = process.env.THISAI_DB
+  ? dirname(process.env.THISAI_DB)
+  : ON_SERVERLESS
+    ? join(tmpdir(), 'thisai-data')
+    : join(__dirname, '..', 'data');
 mkdirSync(DATA_DIR, { recursive: true });
 export const DB_PATH = process.env.THISAI_DB || join(DATA_DIR, 'thisai.db');
 
 export const db = new DatabaseSync(DB_PATH);
+// WAL needs a writable dir for -wal/-shm sidecar files (fine in /tmp). On a
+// read-only FS it would fail, but DB_PATH is always writable by construction.
 db.exec('PRAGMA journal_mode = WAL;');
 db.exec('PRAGMA foreign_keys = ON;');
 

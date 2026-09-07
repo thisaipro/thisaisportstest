@@ -23,6 +23,23 @@ npm run dev      # ONE command: auto-seeds on first run, then serves with live-r
 
 …then open **http://localhost:3000**. That's the fastest path — no separate seed step.
 
+## Deploying to Vercel
+
+The repo includes a `vercel.json` that builds `src/server.js` as a single
+serverless function (`@vercel/node`), bundles `public/**`, and routes all
+requests to it. On a serverless host the deployment bundle is **read-only**, so
+`src/db.js` puts the SQLite file in the OS temp dir (`/tmp`) when `VERCEL` is
+set, and the server auto-seeds it on cold start.
+
+> **Persistence caveat:** `/tmp` is per-instance and ephemeral, so on Vercel the
+> demo data resets whenever a new instance cold-starts, and writes (new
+> referrals, measurements) don't persist across instances. That's fine for a
+> demo. For durable multi-user data, point `THISAI_DB` at a persistent volume
+> (a container host like Render/Railway/Fly), or swap the storage layer in
+> `src/db.js` for a hosted database (e.g. Turso/libSQL, Postgres). A stateful
+> single-process server like this one is generally happier on a persistent host
+> than on serverless.
+
 Prefer explicit steps (or a production-style start)?
 
 ```bash
